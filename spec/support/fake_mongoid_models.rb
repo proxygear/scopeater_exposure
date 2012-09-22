@@ -1,7 +1,7 @@
 class Post
   include Mongoid::Document
 
-  def self.find
+  def self.find *arg
     puts "real post find called"
     new
   end
@@ -37,6 +37,9 @@ end
 
 class Tag
   include Mongoid::Document
+
+  def self.by_name *arg
+  end
 
   def self.find *arg
     puts "real tag find called"

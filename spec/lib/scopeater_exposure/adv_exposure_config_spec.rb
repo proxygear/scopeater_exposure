@@ -2,22 +2,22 @@ require 'spec_helper'
 
 describe 'ADV exposure config' do
   let(:controller) { PostsController.new }
-  let(:params) { {tag_name: :a_name} }
+  let(:params) { {tag_name: :a_name, tag_color: :a_color} }
   let(:a_tag) { Tag.new }
 
   before(:each) do
     controller.stub(:params).and_return params
-    Tag.stub(:first).and_return a_tag
+    Tag.stub(:by_name).and_return a_tag
   end
 
   describe 'tag call' do
     it 'triggers tag config hooks' do
-      controller.should_receive(:tag_name_hook)
+      controller.should_receive(:tag_color_hook)
       controller.tag
     end
     
     it 'uses given finder' do
-      Tag.should_receive(:first).and_return a_tag
+      Tag.should_receive(:by_name).and_return a_tag
       controller.tag
     end
     

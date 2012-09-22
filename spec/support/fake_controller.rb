@@ -18,8 +18,9 @@ class PostsController < ActionController::Base
 
   decent_configuration(:named_tag) do
     strategy ::Scopeater::Exposures::ScopeStrategy
-    scope_hooks :tag_name_hook
-    finder :first
+    scope_hooks :tag_color_hook
+    finder :by_name
+    finder_parameter :tag_name
   end
 
   expose(:posts, config: :collection)
@@ -40,12 +41,11 @@ protected
   end
   
   def taged_hook scope
-    puts "taged_hook -> #{tag}"
     scope.where(tag_ids: tag.id) if tag
   end
   
-  def tag_name_hook scope
-    scope.where(tag_name: params[:tag_name]) if params[:tag_name]
+  def tag_color_hook scope
+    scope.where(tag_color: params[:tag_color]) if params[:tag_colo]
   end
   
   def current_user_hook scope
