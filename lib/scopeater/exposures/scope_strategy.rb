@@ -37,21 +37,17 @@ module Scopeater
         end
       end
 
-      def raw_resource
-        if plural?
-          collection_resource
-        else
-          singular_resource
-        end
-      end
-      
       def resource
-        decorate raw_resource
+        if plural?
+          decorate collection_resource.entries
+        else
+          decorate singular_resource
+        end
       end
       
       def decorate source
         if options[:decorator]
-          decorator.new source
+          options[:decorator].new source
         else
           source
         end
